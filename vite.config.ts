@@ -15,8 +15,15 @@ function resolveBase(): string {
   return `/${repo}/`;
 }
 
+const repoUrl = process.env.GITHUB_REPOSITORY
+  ? `https://github.com/${process.env.GITHUB_REPOSITORY}`
+  : (process.env.VITE_REPO_URL ?? '');
+
 export default defineConfig({
   base: resolveBase(),
+  define: {
+    'import.meta.env.VITE_REPO_URL': JSON.stringify(repoUrl),
+  },
   plugins: [react(), tailwindcss()],
   build: {
     target: 'es2022',

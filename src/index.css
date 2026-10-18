@@ -192,20 +192,24 @@ input[type='range'].slider::-webkit-slider-runnable-track {
   border-radius: 999px;
   background: linear-gradient(
     to var(--fill-dir, right),
-    var(--c-scenario) 0%,
-    var(--c-scenario) var(--fill, 50%),
-    var(--c-border-strong) var(--fill, 50%)
+    var(--c-border-strong) 0,
+    var(--c-border-strong) var(--a, 0%),
+    var(--c-scenario) var(--a, 0%),
+    var(--c-scenario) var(--b, 0%),
+    var(--c-border-strong) var(--b, 0%)
   );
 }
 input[type='range'].slider::-moz-range-track {
   height: 6px;
   border-radius: 999px;
-  background: var(--c-border-strong);
-}
-input[type='range'].slider::-moz-range-progress {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--c-scenario);
+  background: linear-gradient(
+    to var(--fill-dir, right),
+    var(--c-border-strong) 0,
+    var(--c-border-strong) var(--a, 0%),
+    var(--c-scenario) var(--a, 0%),
+    var(--c-scenario) var(--b, 0%),
+    var(--c-border-strong) var(--b, 0%)
+  );
 }
 input[type='range'].slider::-webkit-slider-thumb {
   -webkit-appearance: none;

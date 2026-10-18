@@ -25,13 +25,23 @@ function initialPrefs(): Prefs {
     persianDigits: saved.persianDigits === true,
     expert: saved.expert === true,
   };
-  // URL overrides (used by share links and screenshot tests)
+  // URL overrides (share links, screenshot tests) apply once, then leave the URL.
   if (typeof location !== 'undefined') {
-    const q = new URLSearchParams(location.search);
-    const lang = q.get('lang');
-    const theme = q.get('theme');
+    const url = new URL(location.href);
+    const lang = url.searchParams.get('lang');
+    const theme = url.searchParams.get('theme');
     if (lang === 'fa' || lang === 'en') prefs.lang = lang;
     if (theme === 'dark' || theme === 'light') prefs.theme = theme;
+    if (lang || theme) {
+      writeJSON(PREFS_KEY, prefs);
+      url.searchParams.delete('lang');
+      url.searchParams.delete('theme');
+      try {
+        history.replaceState(history.state, '', url.toString());
+      } catch {
+        /* ignore */
+      }
+    }
   }
   return prefs;
 }
