@@ -231,15 +231,17 @@ radiogroup/tablist keyboard support with RTL-aware arrows, focus-trapped dialogs
 
 ## Deploy & automation
 
-- `ci.yml` (PRs / non-main pushes): lint, format, typecheck, tests, calibrate, validate-data,
+- `ci.yml` (PRs / feature-branch pushes): lint, format, typecheck, tests, calibrate, validate-data,
   build, Playwright.
-- `deploy.yml` (push to main): checks + build + `validate-data` (key scan of `dist/`) → Pages.
+- `deploy.yml` (push to the default branch — `master` in this repo; `main` also accepted): checks + build + `validate-data` (key scan of `dist/`) → Pages.
 - `update-data.yml` (cron `45 13 * * 1-5`, `15 22 * * 1-5`, manual): fetch → validate → commit
   only if `public/data`/`src/data` changed → build → key scan → deploy. Pushes made with
   `GITHUB_TOKEN` don't trigger other workflows, hence the deploy inside this workflow. Shared
   concurrency group `pages`. Failures never commit or deploy.
 - Vite `base` comes from `GITHUB_REPOSITORY` (`/test/` now); `VITE_BASE` overrides.
-- Required once: secret `FRED_API_KEY`; Settings → Pages → Source: GitHub Actions; merge to main.
+- Required once: secret `FRED_API_KEY`; Settings → Pages → Source: GitHub Actions; merge into `master`.
+- `update-data.yml` commits back to the branch it runs on (`$GITHUB_REF_NAME`): scheduled runs use
+  the default branch; run it manually from `master`.
 - Action majors pinned to releases ≥ 2 weeks old at setup (checkout@v6, setup-node@v6,
   upload-pages-artifact@v5, deploy-pages@v5, upload-artifact@v6).
 

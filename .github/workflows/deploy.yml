@@ -1,11 +1,11 @@
-# Build and deploy to GitHub Pages on every push to main (code changes).
+# Build and deploy to GitHub Pages on every push to the default branch (code changes).
 # Data refreshes deploy from update-data.yml, because pushes made with
 # GITHUB_TOKEN do not trigger other workflows.
 name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [master, main]
   workflow_dispatch:
 
 permissions:

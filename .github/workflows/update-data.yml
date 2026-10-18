@@ -27,9 +27,8 @@ jobs:
     outputs:
       changed: ${{ steps.commit.outputs.changed }}
     steps:
+      # Scheduled runs use the default branch (master); manual runs use the branch you pick.
       - uses: actions/checkout@v6
-        with:
-          ref: main
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -59,7 +58,7 @@ jobs:
           git add public/data src/data
           git commit -m "data: refresh $(date -u +'%Y-%m-%d %H:%M') UTC"
           for i in 1 2 3; do
-            git pull --rebase --quiet origin main && git push origin HEAD:main && break
+            git pull --rebase --quiet origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break
             sleep $((i * 5))
           done
           echo "changed=true" >> "$GITHUB_OUTPUT"

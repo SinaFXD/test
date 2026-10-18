@@ -65,7 +65,7 @@ npm run dev          # http://localhost:5173 — بدون کلید API هم کا
 1. **افزودن کلید به Secrets:** مخزن ← Settings ← Secrets and variables ← Actions ← New repository secret ←
    نام: `FRED_API_KEY`، مقدار: کلید شما.
 2. **فعال کردن GitHub Pages:** Settings ← Pages ← Build and deployment ← Source: **GitHub Actions**.
-3. **ادغام در `main`:** انتشار و زمان‌بندی خودکار فقط از شاخهٔ پیش‌فرض اجرا می‌شوند.
+3. **ادغام در شاخهٔ پیش‌فرض (`master`):** انتشار و زمان‌بندی خودکار فقط از شاخهٔ پیش‌فرض اجرا می‌شوند.
 4. **اجرای دستی به‌روزرسانی داده:** تب Actions ← «Update data» ← Run workflow.
 
 پس از آن داده‌ها هر روز کاری دو بار (۱۳:۴۵ و ۲۲:۱۵ به وقت UTC) خودکار به‌روز و سایت دوباره منتشر می‌شود.
@@ -133,8 +133,8 @@ npm run dev          # works without an API key, using the data committed in the
 1. **Add the secret:** Settings → Secrets and variables → Actions → New repository secret →
    name `FRED_API_KEY`, value: your key.
 2. **Enable GitHub Pages:** Settings → Pages → Build and deployment → Source: **GitHub Actions**.
-3. **Merge to `main`.** Deploys and schedules only run from the default branch. `deploy.yml` builds and
-   publishes on every push to `main`.
+3. **Merge into the default branch (`master`).** Deploys and schedules only run from the default
+   branch. `deploy.yml` builds and publishes on every push to it.
 4. **Run the data workflow manually once:** Actions → **Update data** → Run workflow.
 
 `update-data.yml` then runs on weekdays at 13:45 and 22:15 UTC (after the 8:30 ET releases in both

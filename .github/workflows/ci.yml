@@ -1,10 +1,10 @@
-# Checks for pull requests and non-main branches. No secrets needed.
+# Checks for pull requests and feature branches. No secrets needed.
 name: CI
 
 on:
   pull_request:
   push:
-    branches-ignore: [main]
+    branches-ignore: [master, main]
   workflow_dispatch:
 
 permissions:
