@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ControlsPanel } from './components/controls/ControlsPanel';
 import { Banner } from './components/layout/Banner';
 import { MobileControls } from './components/layout/BottomSheet';
@@ -19,6 +20,19 @@ import { useT } from './i18n';
 import { useData } from './state/data';
 import { applyDocumentPrefs, usePrefs } from './state/prefs';
 import { startSimulationDriver } from './state/sim';
+import { useView } from './state/view';
+
+const LearnDrawer = lazy(() => import('./components/learn/LearnDrawer'));
+const SourcesModal = lazy(() => import('./components/learn/SourcesModal'));
+
+function Safe({ children }: { children: ReactNode }) {
+  const t = useT();
+  return (
+    <ErrorBoundary fallback={<div className="glass p-4 text-sm text-muted">{t.unavailable}</div>}>
+      {children}
+    </ErrorBoundary>
+  );
+}
 
 function LoadingSkeleton() {
   const t = useT();
@@ -42,6 +56,8 @@ export default function App() {
   const status = useData((s) => s.status);
   const load = useData((s) => s.load);
   const isDesktop = useIsDesktop();
+  const learnOpen = useView((s) => s.learnOpen);
+  const sourcesOpen = useView((s) => s.sourcesOpen);
 
   useEffect(() => applyDocumentPrefs({ lang, theme }), [lang, theme]);
   useEffect(() => {
@@ -81,19 +97,37 @@ export default function App() {
             </aside>
           )}
           <main id="results" tabIndex={-1} className="min-w-0 space-y-4 outline-none">
-            <Summary />
-            <PolicyChart />
-            <TimeScrubber />
-            <Transmission />
-            <SmallMultiples />
-            <MarketImpact />
-            <DataTable />
+            <Safe>
+              <Summary />
+            </Safe>
+            <Safe>
+              <PolicyChart />
+            </Safe>
+            <Safe>
+              <TimeScrubber />
+            </Safe>
+            <Safe>
+              <Transmission />
+            </Safe>
+            <Safe>
+              <SmallMultiples />
+            </Safe>
+            <Safe>
+              <MarketImpact />
+            </Safe>
+            <Safe>
+              <DataTable />
+            </Safe>
           </main>
         </div>
       )}
       <Footer />
       {!isDesktop && status === 'ready' && <MobileControls />}
       <Toast />
+      <Suspense fallback={null}>
+        {learnOpen && <LearnDrawer />}
+        {sourcesOpen && status === 'ready' && <SourcesModal />}
+      </Suspense>
     </div>
   );
 }

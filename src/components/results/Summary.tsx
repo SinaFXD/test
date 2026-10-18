@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useFmt } from '../../hooks/useFmt';
 import { useT } from '../../i18n';
+import { GlossaryChips } from '../GlossaryChips';
 import { summaryData } from '../../insights/analysis';
 import { isNeutral, toModelInputs } from '../../state/controls';
 import { scenarioValues, useScenario } from '../../state/scenario';
@@ -74,6 +75,9 @@ export function Summary() {
             {l}
           </p>
         ))}
+      </div>
+      <div className="mt-3 border-t border-line pt-2">
+        <GlossaryChips />
       </div>
     </section>
   );

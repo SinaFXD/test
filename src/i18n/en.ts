@@ -345,6 +345,8 @@ export const en: Messages = {
   learnExpert: 'Expert',
   learnIntro:
     'By changing interest rates the Fed changes the cost of borrowing across the economy. The effect reaches markets first, then home buying and investment, then jobs, and finally inflation.',
+  glossaryTitle: 'Glossary',
+  glossaryInline: 'Key terms',
   glossary: [
     { term: 'Basis point (bp)', def: 'One hundredth of a percent. 25bp = 0.25%; 100bp = 1%.' },
     {

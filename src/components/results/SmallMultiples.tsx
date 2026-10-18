@@ -346,6 +346,10 @@ function SmallChart({ spec }: { spec: Spec }) {
   ]);
 
   const title = spec.title(t);
+  // Hide gracefully if the series this chart is anchored to is missing.
+  const need =
+    variant.history === '__gap' ? ['gdp', 'gdpPot'] : variant.history ? [variant.history] : [];
+  const missing = !!data && need.some((k) => !data.series[k]);
   const sub = spec.kind === 'dev' ? t.vsBaseline : diff ? t.vsBaselinePp : null;
 
   return (
@@ -386,7 +390,11 @@ function SmallChart({ spec }: { spec: Spec }) {
           )}
         </div>
       </header>
-      {option ? (
+      {missing ? (
+        <p className="flex h-[185px] items-center justify-center text-sm text-faint">
+          {t.unavailable}
+        </p>
+      ) : option ? (
         <EChart
           option={option}
           height={185}
