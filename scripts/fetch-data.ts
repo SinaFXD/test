@@ -94,9 +94,7 @@ async function loadSeries(fred: FredClient, spec: SeriesSpec, today: string): Pr
 /** Only keep meetings that matter: ~15 months back (snapshots) and everything ahead. */
 const MEETINGS_LOOKBACK_DAYS = 450;
 
-async function loadMeetings(
-  today: string,
-): Promise<{
+async function loadMeetings(today: string): Promise<{
   meetings: FomcMeeting[];
   source: 'federalreserve.gov' | 'bundled';
   refreshed: boolean;
