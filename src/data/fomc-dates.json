@@ -1,0 +1,86 @@
+{
+  "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+  "note": "Decision dates (second day of each two-day meeting). sep=true marks meetings with a Summary of Economic Projections. Verified against the official calendar on 2026-10-18; refreshed automatically by scripts/fetch-data.ts.",
+  "meetings": [
+    {
+      "date": "2025-07-30",
+      "sep": false
+    },
+    {
+      "date": "2025-09-17",
+      "sep": true
+    },
+    {
+      "date": "2025-10-29",
+      "sep": false
+    },
+    {
+      "date": "2025-12-10",
+      "sep": true
+    },
+    {
+      "date": "2026-01-28",
+      "sep": false
+    },
+    {
+      "date": "2026-03-18",
+      "sep": true
+    },
+    {
+      "date": "2026-04-29",
+      "sep": false
+    },
+    {
+      "date": "2026-06-17",
+      "sep": true
+    },
+    {
+      "date": "2026-07-29",
+      "sep": false
+    },
+    {
+      "date": "2026-09-16",
+      "sep": true
+    },
+    {
+      "date": "2026-10-28",
+      "sep": false
+    },
+    {
+      "date": "2026-12-09",
+      "sep": true
+    },
+    {
+      "date": "2027-01-27",
+      "sep": false
+    },
+    {
+      "date": "2027-03-17",
+      "sep": true
+    },
+    {
+      "date": "2027-04-28",
+      "sep": false
+    },
+    {
+      "date": "2027-06-09",
+      "sep": true
+    },
+    {
+      "date": "2027-07-28",
+      "sep": false
+    },
+    {
+      "date": "2027-09-15",
+      "sep": true
+    },
+    {
+      "date": "2027-10-27",
+      "sep": false
+    },
+    {
+      "date": "2027-12-08",
+      "sep": true
+    }
+  ]
+}
