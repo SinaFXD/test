@@ -43,6 +43,8 @@ export interface ScenarioInputs {
   shockPersistence: number;
   /** Demand shock to the output gap at t=1, pp. */
   demandShock: number;
+  /** AR(1) persistence of the demand shock (undefined ⇒ ρ_d). */
+  demandPersistence?: number;
   /** Oil price shock, % change in the oil price. */
   oilShock: number;
   /** Scenario overrides (undefined ⇒ default / data value). */

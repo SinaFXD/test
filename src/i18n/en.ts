@@ -119,6 +119,9 @@ export const en: Messages = {
   demandShock: 'Demand shock',
   demandShockHelp:
     'E.g. government or household spending suddenly rises or falls (% of potential output).',
+  demandPersistence: 'Demand-shock persistence',
+  demandPersistenceHelp:
+    'Close to 1 = the hit to demand lasts for years (like 2008); lower = it heals fast (like 2020 with fiscal help).',
   oilShock: 'Oil price shock',
   oilShockHelp: '% change in the oil price. Hits headline inflation far more than core.',
   horizon: 'Horizon',
@@ -166,6 +169,66 @@ export const en: Messages = {
     recessionScare: {
       name: 'Recession scare',
       desc: 'Demand drops suddenly; the Fed responds via its rule.',
+    },
+  },
+  presetsHistoryTitle: 'Real episodes (2007–2025)',
+  presetsHistoryHint: 'Each runs a shock like that episode on today’s economy.',
+  presetsHistory: {
+    gfc2008: {
+      name: '2008 financial crisis',
+      desc: 'The housing bubble bursts and Lehman fails; demand collapses and heals slowly.',
+    },
+    oil2008: {
+      name: '2008 oil spike',
+      desc: 'Oil roughly doubles in a year; headline inflation jumps, core much less.',
+    },
+    euro2011: {
+      name: '2011 euro debt crisis',
+      desc: 'Fears of European sovereign defaults and a U.S. downgrade — a moderate but lasting drag.',
+    },
+    taper2013: {
+      name: '2013 taper tantrum',
+      desc: 'Markets suddenly expect the Fed to tighten sooner; long-term rates jump.',
+    },
+    oil2015: {
+      name: '2015 oil crash',
+      desc: 'Oil falls about 70% and the dollar soars; headline inflation near zero.',
+    },
+    tax2018: {
+      name: '2018 tax cuts',
+      desc: 'Fiscal stimulus lifts demand and the Fed hikes.',
+    },
+    trade2019: {
+      name: '2019 trade war',
+      desc: 'Tariffs slow investment and lift goods prices a bit; the Fed makes three “insurance” cuts.',
+    },
+    covid2020: {
+      name: '2020 pandemic',
+      desc: 'A violent but short demand collapse with massive fiscal help; emergency cuts to zero.',
+    },
+    surge2021: {
+      name: '2021 post-COVID inflation',
+      desc: 'A large, persistent inflation shock while the Fed calls it “transitory” and waits.',
+    },
+    hikes2022: {
+      name: '2022 rapid hikes',
+      desc: 'The same 2021 inflation shock, but the Fed hikes early and hard.',
+    },
+    energy2022: {
+      name: '2022 Ukraine war',
+      desc: 'An energy and food shock: oil up about 60%.',
+    },
+    svb2023: {
+      name: '2023 bank failures',
+      desc: 'SVB and other banks fail; lending tightens — roughly like a hike or two.',
+    },
+    cuts2024: {
+      name: '2024 rate cuts',
+      desc: 'Inflation cools and the job market softens; the Fed cuts 100bp.',
+    },
+    tariffs2025: {
+      name: '2025 tariffs',
+      desc: 'Broad tariffs: a one-time jump in goods prices and an uncertainty drag on demand.',
     },
   },
 

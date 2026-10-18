@@ -14,6 +14,7 @@ export interface ScenarioValues {
   inflationShock: number;
   shockPersistence: number;
   demandShock: number;
+  demandPersistence: number;
   oilShock: number;
   phiPi: number;
   lambda: number;
@@ -40,8 +41,10 @@ export const SLIDERS: Record<NumericKey, SliderSpec> = {
   holdQuarters: { min: 1, max: 8, step: 1, def: 4 },
   inflationShock: { min: -2, max: 3, step: 0.25, def: 0 },
   shockPersistence: { min: 0, max: 0.95, step: 0.05, def: 0.5 },
-  demandShock: { min: -3, max: 3, step: 0.25, def: 0 },
-  oilShock: { min: -50, max: 50, step: 5, def: 0 },
+  // Ranges reach 2008/2020-sized demand collapses and the 2008 oil spike (historical presets).
+  demandShock: { min: -6, max: 3, step: 0.25, def: 0 },
+  demandPersistence: { min: 0, max: 0.95, step: 0.05, def: DEFAULT_PARAMS.rhoD },
+  oilShock: { min: -70, max: 100, step: 5, def: 0 },
   phiPi: { min: 0, max: 1.5, step: 0.05, def: DEFAULT_PARAMS.phiPi },
   lambda: { min: 0, max: 1, step: 0.05, def: DEFAULT_PARAMS.lambda },
   rStar: { min: 0, max: 2.5, step: 0.05, def: 1 },
@@ -55,6 +58,7 @@ export const DEFAULT_VALUES: ScenarioValues = {
   inflationShock: 0,
   shockPersistence: 0.5,
   demandShock: 0,
+  demandPersistence: DEFAULT_PARAMS.rhoD,
   oilShock: 0,
   phiPi: DEFAULT_PARAMS.phiPi,
   lambda: DEFAULT_PARAMS.lambda,
@@ -101,6 +105,7 @@ export function toModelInputs(v: ScenarioValues): ScenarioInputs {
     inflationShock: useShock ? v.inflationShock : 0,
     shockPersistence: v.shockPersistence,
     demandShock: v.demandShock,
+    demandPersistence: v.demandPersistence,
     oilShock: v.oilShock,
     phiPi: v.phiPi,
     lambda: v.lambda,
