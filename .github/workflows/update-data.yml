@@ -1,0 +1,91 @@
+# Refresh FRED data on weekdays, commit it if it changed, then build and deploy.
+#  13:45 UTC = 9:45 ET (EDT) / 8:45 ET (EST): after the 8:30 ET releases (CPI, jobs, PCE, GDP)
+#  22:15 UTC = 6:15 pm ET (EDT) / 5:15 pm ET (EST): end-of-day market data
+# If fetching or validation fails the job fails: nothing is committed or deployed,
+# so the live site keeps serving the previous (valid) data.
+name: Update data
+
+on:
+  schedule:
+    - cron: '45 13 * * 1-5'
+    - cron: '15 22 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: Fetch data from FRED
+        run: npm run fetch-data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
+      - name: Validate data
+        run: npm run validate-data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
+      - name: Commit data if it changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- public/data src/data)" ]; then
+            echo "No data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data src/data
+          git commit -m "data: refresh $(date -u +'%Y-%m-%d %H:%M') UTC"
+          for i in 1 2 3; do
+            git pull --rebase --quiet origin main && git push origin HEAD:main && break
+            sleep $((i * 5))
+          done
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        if: steps.commit.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Scan the build for secrets
+        if: steps.commit.outputs.changed == 'true'
+        run: npm run validate-data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
+      - uses: actions/upload-pages-artifact@v5
+        if: steps.commit.outputs.changed == 'true'
+        with:
+          path: dist
+
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

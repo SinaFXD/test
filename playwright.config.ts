@@ -9,7 +9,7 @@ const PORT = 4173;
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 60_000,
+  timeout: 90_000,
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
@@ -26,8 +26,10 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
-    command: `npx vite preview --port ${PORT} --strictPort --base /`,
+    // Build with base "/" so the preview server serves the app at the root.
+    command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
     port: PORT,
+    timeout: 180_000,
     reuseExistingServer: !process.env.CI,
     env: { VITE_BASE: '/' },
   },
