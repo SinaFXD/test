@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="آزمایشگاه سیاست پولی فدرال رزرو — شبیه‌ساز آموزشی و ساده‌شده با داده‌های رسمی و به‌روز FRED. Fed Policy Lab — an educational, simplified Fed policy simulator."
+    />
+    <meta name="theme-color" content="#070d1c" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Fed Policy Lab | آزمایشگاه سیاست پولی فدرال رزرو</title>
+    <script>
+      // Apply saved theme/lang before first paint (no flash). Storage may be unavailable.
+      (function () {
+        try {
+          var raw = localStorage.getItem('fpl:prefs');
+          var p = raw ? JSON.parse(raw) : {};
+          var theme = p.theme === 'light' || p.theme === 'dark' ? p.theme : 'dark';
+          var lang = p.lang === 'en' ? 'en' : 'fa';
+          var q = new URLSearchParams(location.search);
+          if (q.get('lang') === 'en' || q.get('lang') === 'fa') lang = q.get('lang');
+          if (q.get('theme') === 'light' || q.get('theme') === 'dark') theme = q.get('theme');
+          var el = document.documentElement;
+          el.setAttribute('data-theme', theme);
+          el.setAttribute('lang', lang);
+          el.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript
+      >این برنامه برای اجرا به جاوااسکریپت نیاز دارد. / This app requires JavaScript.</noscript
+    >
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
