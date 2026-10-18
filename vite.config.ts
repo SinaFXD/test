@@ -25,6 +25,7 @@ export default defineConfig({
     'import.meta.env.VITE_REPO_URL': JSON.stringify(repoUrl),
   },
   plugins: [react(), tailwindcss()],
+  worker: { format: 'es' },
   build: {
     target: 'es2022',
     sourcemap: false,

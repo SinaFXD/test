@@ -9,15 +9,22 @@ async function collectErrors(page: Page) {
   return errors;
 }
 
-/** Scroll through the page so lazily-initialized charts render. */
+/** Wait for deferred sections, then scroll through so lazily-initialized charts render. */
 async function revealAll(page: Page) {
-  const h = await page.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y < h; y += 450) {
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('.skeleton')).toHaveCount(0, { timeout: 10_000 });
+  for (
+    let y = 0;
+    y < (await page.evaluate(() => document.documentElement.scrollHeight));
+    y += 450
+  ) {
     await page.evaluate((yy) => window.scrollTo(0, yy), y);
     await page.waitForTimeout(80);
   }
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(700);
+  // every chart (main + 9 small multiples) has drawn its canvas
+  await expect(page.locator('[role=img][dir=ltr] canvas')).toHaveCount(10, { timeout: 10_000 });
 }
 
 test('loads real data, renders charts and reacts to a preset', async ({ page }, info) => {
@@ -35,7 +42,7 @@ test('loads real data, renders charts and reacts to a preset', async ({ page }, 
   // Apply a preset (desktop: sidebar; mobile: bottom sheet)
   if (info.project.name === 'mobile')
     await page.getByRole('button', { name: /تنظیم سناریو/ }).click();
-  await page.getByRole('button', { name: 'فدرال عقاب +100' }).click();
+  await page.getByRole('button', { name: /فدرال عقاب/ }).click();
   if (info.project.name === 'mobile')
     await page.getByRole('button', { name: 'بستن تنظیمات' }).click();
   // numbers carry invisible bidi isolates (U+2066/U+2069) in RTL text
@@ -58,6 +65,37 @@ test('loads real data, renders charts and reacts to a preset', async ({ page }, 
     window.innerWidth,
   ]);
   expect(sw).toBeLessThanOrEqual(iw);
+  expect(errors).toEqual([]);
+});
+
+test('play, CSV and PNG export work (desktop)', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop sidebar controls');
+  const errors = await collectErrors(page);
+  await page.goto('./?dp=100');
+  await expect(page.getByText('دامنهٔ نرخ بهرهٔ فدرال')).toBeVisible();
+
+  // Play animates quarter by quarter and lights up the transmission stages
+  await page.getByRole('button', { name: 'پخش' }).click();
+  await expect(page.getByRole('button', { name: 'توقف' })).toBeVisible();
+  await expect(page.locator('[aria-current="step"]').first()).toBeVisible({ timeout: 5000 });
+  await page.getByRole('button', { name: 'توقف' }).click();
+
+  const csvDl = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'خروجی CSV' }).click();
+  const csv = await csvDl;
+  expect(csv.suggestedFilename()).toMatch(/^fed-policy-lab-\d{4}-\d{2}-\d{2}\.csv$/);
+  const text = await (
+    await csv.createReadStream()
+  )
+    .toArray()
+    .then((c) => Buffer.concat(c).toString('utf8'));
+  expect(text).toContain('policy_rate_pct_baseline');
+  expect(text).not.toMatch(/NaN/);
+
+  const pngDl = page.waitForEvent('download', { timeout: 15000 });
+  await page.getByRole('button', { name: 'خروجی تصویر' }).click();
+  const png = await pngDl;
+  expect(png.suggestedFilename()).toMatch(/\.png$/);
   expect(errors).toEqual([]);
 });
 

@@ -18,7 +18,7 @@ describe('App shell', () => {
       'آزمایشگاه سیاست پولی فدرال',
     );
     expect(document.documentElement.dir).toBe('rtl');
-    await userEvent.click(screen.getByRole('button', { name: 'تغییر زبان به انگلیسی' }));
+    await userEvent.click(screen.getByRole('button', { name: 'English' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Fed Policy Lab');
     expect(document.documentElement.dir).toBe('ltr');
   });

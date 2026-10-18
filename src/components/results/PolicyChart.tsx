@@ -13,7 +13,7 @@ import {
 } from '../../charts/options';
 import { useChartTheme } from '../../charts/theme';
 import { addDays } from '../../data/dates';
-import { loadSnapshot } from '../../data/load';
+import { loadSnapshot } from '../../data/client';
 import type { Snapshot } from '../../data/schema';
 import { useIsDesktop, useReducedMotion } from '../../hooks/useMediaQuery';
 import { useT } from '../../i18n';
@@ -72,7 +72,7 @@ export function PolicyChart() {
 
   const option = useMemo(() => {
     if (!result || !data || !init || !quarters.length) return null;
-    const ctx: Ctx = { theme, lang, reduced, quarters, nowLabel: t.now };
+    const ctx: Ctx = { theme, lang, reduced, quarters, nowLabel: t.now, endLabels: desktop };
     const dates = quarters.map((q) => ts(q.date));
     const H = result.horizon;
     const reveal = playQ === null ? H : Math.min(playQ, H);

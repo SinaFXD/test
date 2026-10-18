@@ -88,6 +88,7 @@
 
 @layer base {
   html {
+    scrollbar-gutter: stable;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }

@@ -62,7 +62,7 @@ const SPECS: Spec[] = [
         path: 'pi',
         history: 'corePce',
         fan: 'corePce',
-        ref: (_i, m) => ({ y: 2, label: m.legend.target }),
+        ref: (_i, m) => ({ y: 2, label: m.legend.targetChart }),
       },
       {
         key: 'headline',
@@ -70,7 +70,7 @@ const SPECS: Spec[] = [
         path: 'piH',
         history: 'pce',
         fan: 'corePce',
-        ref: (_i, m) => ({ y: 2, label: m.legend.target }),
+        ref: (_i, m) => ({ y: 2, label: m.legend.targetChart }),
       },
     ],
   },
@@ -309,7 +309,7 @@ function SmallChart({ spec }: { spec: Spec }) {
 
   const option = useMemo(() => {
     if (!result || !init || !data || !quarters.length) return null;
-    const ctx: Ctx = { theme, lang, reduced, quarters, nowLabel: t.now };
+    const ctx: Ctx = { theme, lang, reduced, quarters, nowLabel: t.now, endLabels: desktop };
     const reveal = playQ === null ? result.horizon : Math.min(playQ, result.horizon);
     return buildOption({
       spec,
@@ -424,7 +424,7 @@ export function SmallMultiples() {
           { label: t.legend.fan, color: theme.scenario, swatch: 'band' },
         ]}
       />
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 md:max-xl:[&>*:last-child:nth-child(odd)]:col-span-2">
         {SPECS.map((s) => (
           <SmallChart key={s.id} spec={s} />
         ))}

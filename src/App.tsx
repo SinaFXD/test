@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { Deferred } from './components/Deferred';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ControlsPanel } from './components/controls/ControlsPanel';
 import { Banner } from './components/layout/Banner';
@@ -104,24 +105,34 @@ export default function App() {
               <PolicyChart />
             </Safe>
             <Safe>
-              <TimeScrubber />
+              <Deferred minHeight={420}>
+                <TimeScrubber />
+              </Deferred>
             </Safe>
             <Safe>
-              <Transmission />
+              <Deferred minHeight={220}>
+                <Transmission />
+              </Deferred>
             </Safe>
             <Safe>
-              <SmallMultiples />
+              <Deferred minHeight={900}>
+                <SmallMultiples />
+              </Deferred>
             </Safe>
             <Safe>
-              <MarketImpact />
+              <Deferred minHeight={260}>
+                <MarketImpact />
+              </Deferred>
             </Safe>
             <Safe>
-              <DataTable />
+              <Deferred minHeight={60}>
+                <DataTable />
+              </Deferred>
             </Safe>
           </main>
         </div>
       )}
-      <Footer />
+      {status !== 'loading' && <Footer />}
       {!isDesktop && status === 'ready' && <MobileControls />}
       <Toast />
       <Suspense fallback={null}>

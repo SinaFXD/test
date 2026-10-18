@@ -64,7 +64,6 @@ export function Popover({
         type="button"
         aria-expanded={open}
         aria-controls={id}
-        aria-label={label}
         onClick={() => setOpen((o) => !o)}
         className={triggerClassName}
       >

@@ -2,7 +2,7 @@
  * Shared ECharts option builders. Charts use Latin digits; tooltips add the
  * Jalali date in Persian. Text always uses text tokens (never series colors).
  */
-import { fmtDate, fmtJalali, fmtNum } from '../i18n/format';
+import { dtf, fmtDate, fmtJalali, fmtNum } from '../i18n/format';
 import type { Lang } from '../state/prefs';
 import type { QuarterMeta } from '../state/sim';
 import type { ChartTheme } from './theme';
@@ -24,10 +24,12 @@ export interface Ctx {
   reduced: boolean;
   quarters: QuarterMeta[];
   nowLabel: string;
+  /** Reserve right padding for direct end-labels. */
+  endLabels?: boolean;
 }
 
 function monthFmt(lang: Lang) {
-  return new Intl.DateTimeFormat(lang === 'fa' ? 'fa-IR-u-ca-gregory-nu-latn' : 'en-US', {
+  return dtf(lang === 'fa' ? 'fa-IR-u-ca-gregory-nu-latn' : 'en-US', {
     month: 'short',
     timeZone: 'UTC',
   });
@@ -50,7 +52,13 @@ export function baseOption(
     animationDurationUpdate: 300,
     animationEasingUpdate: 'cubicOut' as const,
     textStyle: { fontFamily: theme.font, color: theme.muted },
-    grid: { left: 6, right: 14, top: GRID.top, bottom: GRID.bottom, containLabel: true },
+    grid: {
+      left: 6,
+      right: ctx.endLabels ? 46 : 14,
+      top: GRID.top,
+      bottom: GRID.bottom,
+      containLabel: true,
+    },
     xAxis: {
       type: 'time' as const,
       min: x.min,
@@ -147,12 +155,20 @@ export function tooltip(ctx: Ctx, rows: Record<string, TooltipRow>, fmt: (v: num
   };
 }
 
+/**
+ * Labels drawn inside the canvas must be single-direction: canvas text ignores
+ * bidi isolates, so Persian labels never mix in digits (see legend.targetChart).
+ */
 export interface RefLine {
   y: number;
   label: string;
 }
 
 /** Vertical/horizontal reference marks on an invisible carrier series. */
+/** Persian text drawn on the (LTR) canvas needs an RTL isolate to keep its word order. */
+export const canvasText = (ctx: Ctx, s: string) =>
+  ctx.lang === 'fa' && s ? `\u2067${s}\u2069` : s;
+
 export function markers(
   ctx: Ctx,
   o: {

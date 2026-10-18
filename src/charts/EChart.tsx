@@ -1,7 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { subscribeHover, publishHover } from './crosshair';
-import { echarts, type EChartsType } from './echarts';
+import type { EChartsType } from './echarts';
 import { CHART_GROUP, registerChart, registerInitializer } from './registry';
+
+// ECharts (~180 KB gzip) loads off the critical path, after first paint.
+let echartsPromise: Promise<typeof import('./echarts')> | null = null;
+const loadECharts = () =>
+  (echartsPromise ??= new Promise<void>((resolve) => {
+    if ('requestIdleCallback' in globalThis) requestIdleCallback(() => resolve(), { timeout: 800 });
+    else setTimeout(resolve, 50);
+  }).then(() => import('./echarts')));
 
 type Option = Parameters<EChartsType['setOption']>[0];
 
@@ -44,8 +52,17 @@ export function EChart({ option, height, label, gridTop = 24, gridBottom = 28, c
     let unregister: (() => void) | undefined;
     let unsubscribe: (() => void) | undefined;
 
+    let disposed = false;
+    let initializing = false;
     const init = () => {
-      if (chart.current) return;
+      if (chart.current || initializing) return;
+      initializing = true;
+      void loadECharts().then(({ echarts }) => {
+        if (disposed || chart.current) return;
+        create(echarts);
+      });
+    };
+    const create = (echarts: (typeof import('./echarts'))['echarts']) => {
       const c = echarts.init(node, undefined, { renderer: 'canvas' });
       c.group = CHART_GROUP;
       chart.current = c;
@@ -122,6 +139,7 @@ export function EChart({ option, height, label, gridTop = 24, gridBottom = 28, c
     ro?.observe(node);
 
     return () => {
+      disposed = true;
       io?.disconnect();
       ro?.disconnect();
       unregisterInit();

@@ -138,7 +138,7 @@ export function Header() {
             type="button"
             className="btn px-2.5"
             lang={lang === 'fa' ? 'en' : 'fa'}
-            aria-label={t.langToggleLabel}
+            title={t.langToggleLabel}
             onClick={() => setPrefs({ lang: lang === 'fa' ? 'en' : 'fa' })}
           >
             {t.langToggle}

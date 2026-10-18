@@ -15,7 +15,7 @@ const base = () => import.meta.env.BASE_URL;
  * Load latest.json; if the request or validation fails, fall back to the
  * snapshot bundled at build time (lazy chunk, so it costs nothing normally).
  */
-export async function loadLatest(): Promise<{
+export async function loadLatestDirect(): Promise<{
   data: LatestData;
   source: DataSource;
   error?: string;

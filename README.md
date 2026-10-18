@@ -9,6 +9,12 @@
   <img src="docs/screenshots/desktop-fa-dark.png" alt="Fed Policy Lab — Persian, dark theme" width="49%">
   <img src="docs/screenshots/desktop-en-light.png" alt="Fed Policy Lab — English, light theme" width="49%">
 </p>
+<p align="center">
+  <img src="docs/screenshots/mobile-fa-dark.png" alt="Mobile — Persian, dark" width="24%">
+  <img src="docs/screenshots/mobile-fa-light.png" alt="Mobile — Persian, light" width="24%">
+  <img src="docs/screenshots/mobile-en-dark.png" alt="Mobile — English, dark" width="24%">
+  <img src="docs/screenshots/mobile-en-light.png" alt="Mobile — English, light" width="24%">
+</p>
 
 [فارسی](#فارسی) · [English](#english)
 

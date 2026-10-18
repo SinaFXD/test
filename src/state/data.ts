@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { loadLatest, type DataSource } from '../data/load';
+import { loadLatest, type DataSource } from '../data/client';
 import type { LatestData } from '../data/schema';
 
 interface DataStore {

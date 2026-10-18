@@ -18,7 +18,8 @@ export function registerInitializer(fn: () => void): () => void {
 /** Initialize every lazily-rendered chart, then wait for them to paint. */
 export async function initAllCharts(): Promise<void> {
   for (const fn of initializers) fn();
-  await new Promise((r) => setTimeout(r, 450));
+  await import('./echarts');
+  await new Promise((r) => setTimeout(r, 500));
 }
 
 export function registerChart(c: EChartsType): () => void {

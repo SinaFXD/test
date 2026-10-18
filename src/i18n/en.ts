@@ -198,7 +198,7 @@ export const en: Messages = {
 
   chartPolicyTitle: 'Fed policy rate: baseline vs your scenario',
   chartPolicyDesc:
-    'Dashed: baseline. Solid: your scenario. Blue dotted: approximate market expectations. Pink dots: FOMC median projections.',
+    'Dashed: baseline. Solid: your scenario. Blue dotted: approximate market expectations. Green dots: FOMC median projections.',
   legend: {
     history: 'Actual (past)',
     baseline: 'Baseline',
@@ -212,6 +212,7 @@ export const en: Messages = {
     meeting: 'FOMC meeting',
     today: 'Today',
     target: '2% target',
+    targetChart: '2% target',
     uStar: 'Natural rate',
     fan: 'Uncertainty range (approx.)',
     zero: 'No change',
@@ -243,7 +244,7 @@ export const en: Messages = {
   },
   chartHints: {
     inflation: 'The Fed wants core inflation back at 2%.',
-    unemployment: 'Green dashed line: CBO estimate of the “natural” rate.',
+    unemployment: 'Gray dashed line: CBO estimate of the “natural” rate.',
     gdpGrowth: 'Growth above potential means the economy is heating up.',
     outputGap: 'Positive = overheating; negative = idle capacity.',
     yields: 'Mortgage rates move roughly with the 10-year yield.',
