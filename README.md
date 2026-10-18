@@ -37,7 +37,7 @@
 
 - داده‌های زنده: نرخ فدرال، تورم PCE و CPI، بیکاری، رشد، شکاف تولید، منحنی بازده، وام مسکن، انتظارات تورمی، دلار، S&P 500
 - شمارش معکوس تا جلسهٔ بعدی FOMC و نشان «قدیمی» برای داده‌های دیرشده
-- سه سناریو (تغییر نرخ، شوک تورمی، سفارشی)، تنظیمات پیشرفته و ۷ سناریوی آماده
+- سه سناریو (تغییر نرخ، شوک تورمی، سفارشی)، تنظیمات پیشرفته، ۷ سناریوی آماده و ۱۴ رویداد واقعی از ۲۰۰۷ تا ۲۰۲۵ (بحران ۲۰۰۸، کرونا، تورم ۲۰۲۱، افزایش نرخ ۲۰۲۲، تعرفه‌های ۲۰۲۵ و …) همراه با شرح آنچه واقعاً رخ داد
 - نمودار نرخ بهره با مسیر تقریبی بازار، پیش‌بینی‌های فدرال (SEP)، نوار عدم‌قطعیت و مقایسه با یک هفته/یک ماه پیش
 - نمودارهای کوچک همگام، «سفر در زمان»، خط زمانی انتقال اثر، خلاصهٔ خودکار به زبان ساده
 - پخش فصل‌به‌فصل، لینک اشتراک، خروجی CSV و تصویر، فارسی/انگلیسی، تم تیره/روشن، موبایل
@@ -97,7 +97,9 @@ mortgage rates, the dollar and stocks respond over the next 2–5 years, explain
   yields, mortgage rates, 5y5y inflation expectations, dollar index, S&P 500 — with sparklines,
   as-of dates and staleness badges
 - Countdown to the next FOMC decision
-- Scenario tabs (rate change, inflation shock, custom), advanced settings and 7 presets
+- Scenario tabs (rate change, inflation shock, custom), advanced settings, 7 presets and 14 real
+  episodes from 2007–2025 (2008 crisis, COVID, 2021 inflation, 2022 hikes, 2025 tariffs, …), each
+  with a note on what actually happened next
 - Policy-rate chart with approximate market path, FOMC SEP dots, uncertainty fan, ELB, meeting markers
   and market paths from 1 week / 1 month ago
 - Synced small multiples, time scrubber, transmission timeline, auto-generated summary, market rules of thumb

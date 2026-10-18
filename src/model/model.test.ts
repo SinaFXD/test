@@ -85,8 +85,9 @@ describe('model invariants', () => {
       holdQuarters: [1, 8],
       inflationShock: [-2, 3],
       shockPersistence: [0, 0.95],
-      demandShock: [-3, 3],
-      oilShock: [-50, 50],
+      demandShock: [-6, 3],
+      demandPersistence: [0, 0.95],
+      oilShock: [-70, 100],
       phiPi: [0, 1.5],
       lambda: [0, 1],
       rStar: [0, 2.5],
@@ -171,6 +172,22 @@ describe('shock convention (slider value = impact)', () => {
   it('a demand shock raises the output gap by exactly D on impact', () => {
     const r = simulate(NEUTRAL_INIT, { ...zero('rule'), demandShock: -2 });
     expect(r.scenario.y[1]! - r.baseline.y[1]!).toBeCloseTo(-2, 10);
+  });
+
+  it('without feedback the output-gap deviation follows D·ρd^(t−1)', () => {
+    const p = { ...DEFAULT_PARAMS, alpha: 0 };
+    for (const [rho, expected] of [
+      [0.9, 0.9],
+      [undefined, DEFAULT_PARAMS.rhoD],
+    ] as const) {
+      const r = simulate(
+        NEUTRAL_INIT,
+        { ...zero('rule'), demandShock: -3, demandPersistence: rho },
+        p,
+      );
+      for (let t = 1; t < 10; t++)
+        expect(r.scenario.y[t]! - r.baseline.y[t]!).toBeCloseTo(-3 * expected ** (t - 1), 10);
+    }
   });
 
   it('de-anchored expectations make the same shock more persistent', () => {

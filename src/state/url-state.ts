@@ -8,6 +8,7 @@ const KEYS: Record<keyof ScenarioValues, string> = {
   inflationShock: 'is',
   shockPersistence: 'sp',
   demandShock: 'ds',
+  demandPersistence: 'dr',
   oilShock: 'oil',
   phiPi: 'phi',
   lambda: 'lam',

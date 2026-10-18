@@ -207,6 +207,15 @@ export function ControlsPanel({ idPrefix = 'ctl' }: { idPrefix?: string }) {
             help={t.demandShockHelp}
           />
           <Slider
+            label={t.demandPersistence}
+            value={s.demandPersistence}
+            {...bind('demandPersistence')}
+            display={num('demandPersistence', 2)}
+            ariaText={t.ariaPlain(aria(f.num(s.demandPersistence, { dp: 2 })))}
+            help={t.demandPersistenceHelp}
+            disabled={s.demandShock === 0}
+          />
+          <Slider
             label={t.oilShock}
             value={s.oilShock}
             {...bind('oilShock')}

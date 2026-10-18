@@ -69,12 +69,13 @@ function buildShocks(
     const xPi = new Float64Array(n);
     const xD = new Float64Array(n);
     const oil = new Float64Array(n);
+    const rhoD = inp.demandPersistence ?? p.rhoD;
     for (let t = 1; t < n; t++) {
       oil[t] = inp.oilShock * p.rhoOil ** (t - 1);
       // y/y headline effect of the oil price level (realistic base effects after 4Q)
       oilPi[t] = p.oilPass * (oil[t]! - (t >= 4 ? oil[t - 4]! : 0));
       xPi[t] = inp.inflationShock * inp.shockPersistence ** (t - 1) + p.oilCore * oilPi[t]!;
-      xD[t] = inp.demandShock * p.rhoD ** (t - 1) - p.oilGap * oil[t]!;
+      xD[t] = inp.demandShock * rhoD ** (t - 1) - p.oilGap * oil[t]!;
       s[t] = xPi[t]! - a0 * xPi[t - 1]!;
       d[t] = xD[t]! - base.rhoY * xD[t - 1]!;
     }

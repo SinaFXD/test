@@ -36,7 +36,7 @@ src/insights/       analysis.ts — peaks, transmission stages, summary inputs, 
 src/state/          prefs · scenario (URL/localStorage) · controls (values ↔ model inputs) · data · sim (driver) · view
 src/charts/         echarts.ts (tree-shaken) · EChart.tsx (lazy wrapper) · options.ts · theme.ts · crosshair.ts · registry.ts
 src/components/     layout/ (Header, Banner, BottomSheet, Footer, Toast) · controls/ · results/ · learn/ (lazy)
-src/i18n/           fa.ts (source of truth) · en.ts · index.ts (useT) · format.ts
+src/i18n/           fa.ts (source of truth) · en.ts · index.ts (useT) · format.ts · history.ts (lazy preset stories)
 e2e/                smoke.spec.ts (smoke + export + 8 screenshots)
 .github/workflows/  ci.yml · deploy.yml · update-data.yml
 ```
@@ -139,6 +139,9 @@ variable moves by exactly x_t; de-anchored expectations amplify the same shock. 
 additive form turned "+1pp" into +3pp of inflation.) Oil: % change in the oil price, decaying at
 ρo; headline effect ωo·(oil_t − oil_{t−4}) gives realistic base effects.
 
+**Demand persistence** is a user lever (`demandPersistence`, URL `dr`, default ρd = 0.7): the
+historical presets need lasting (2008: 0.9) and short-lived (2020: 0.5) demand shocks.
+
 **Safety bounds** (inactive in normal ranges): soft clamp on the output gap (−12/+8), unemployment
 floor 2%, soft clamps on satellite % deviations — keep slider-extreme corners finite.
 
@@ -221,7 +224,7 @@ within plausibility bounds; shock-impact convention; speed.
 
 Lighthouse (local preview, gzip): mobile Performance 91–93, desktop 100; Accessibility 100 and
 Best Practices 100 on both. Levers: static skeleton in `index.html` (first paint before JS),
-zod + data parsing in a worker (main bundle ≈ 92 KB gzip), ECharts/KaTeX/fallback/Learn lazy,
+zod + data parsing in a worker (main bundle ≈ 94 KB gzip), ECharts/KaTeX/fallback/Learn lazy,
 below-the-fold sections mounted at idle (`Deferred`), data table rendered only when opened,
 `scrollbar-gutter: stable` (no CLS), cached Intl formatters, rAF-throttled recompute.
 A11y: sliders expose spoken `aria-valuetext` (Persian digits in FA), visible focus rings,
@@ -257,6 +260,11 @@ radiogroup/tablist keyboard support with RTL-aware arrows, focus-trapped dialogs
 - Satellite charts (dollar, S&P, housing, investment) show % difference vs baseline — the model
   doesn't forecast market levels.
 - Gold and EUR/USD are qualitative only (no free gold series on FRED; brief asked for rules of thumb).
+- Historical presets (`src/model/presets.ts`, group `history`, 2007–2025): each applies a shock
+  _like_ the episode to today's data — an analogy, not a replay. Slider ranges were widened so they
+  fit: demand shock −6…+3 (2008/2020 output gaps), oil −70…+100% (2008 spike, 2014–16 crash).
+  The long "what happened / what the Fed did / what came next" copy lives in `src/i18n/history.ts`
+  and loads with the lazy `PresetStory` chunk (keeps the main bundle ≈ 94 KB gzip).
 
 ## Adding another central bank
 
