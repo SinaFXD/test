@@ -7,6 +7,19 @@ import type { EChartsType } from 'echarts/core';
 export const CHART_GROUP = 'fpl';
 
 const charts = new Set<EChartsType>();
+const initializers = new Set<() => void>();
+
+/** Lazy charts register how to initialize themselves (used before PNG export). */
+export function registerInitializer(fn: () => void): () => void {
+  initializers.add(fn);
+  return () => initializers.delete(fn);
+}
+
+/** Initialize every lazily-rendered chart, then wait for them to paint. */
+export async function initAllCharts(): Promise<void> {
+  for (const fn of initializers) fn();
+  await new Promise((r) => setTimeout(r, 450));
+}
 
 export function registerChart(c: EChartsType): () => void {
   charts.add(c);

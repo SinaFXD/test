@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { connectedChartsDataUrl } from '../../charts/registry';
+import { connectedChartsDataUrl, initAllCharts } from '../../charts/registry';
 import { togglePlay } from '../../hooks/usePlay';
 import { useT } from '../../i18n';
 import { buildCsv, composePng, copyText, downloadBlob } from '../../lib/export';
@@ -42,6 +42,7 @@ export function ActionBar() {
   const onPng = async () => {
     setBusy(true);
     try {
+      await initAllCharts();
       const css = getComputedStyle(document.documentElement);
       const bg = css.getPropertyValue('--c-bg').trim() || '#070d1c';
       const url = connectedChartsDataUrl(bg);

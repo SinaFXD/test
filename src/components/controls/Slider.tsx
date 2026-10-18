@@ -54,7 +54,7 @@ export function Slider({
         </label>
         <output
           htmlFor={id}
-          className="num shrink-0 rounded-md bg-scenario-soft px-2 py-0.5 text-sm font-semibold text-scenario"
+          className="num shrink-0 rounded-md bg-scenario-soft px-2 py-0.5 text-sm font-semibold text-accent-text"
         >
           {display}
         </output>

@@ -238,6 +238,7 @@ export const fa = {
     uStar: 'بیکاری طبیعی',
     fan: 'محدودهٔ عدم‌قطعیت (تقریبی)',
     zero: 'بدون تغییر',
+    atPotential: 'هم‌سطح ظرفیت',
     potential: 'رشد بالقوه',
   },
   overlayWeek: '۱ هفته پیش',
@@ -277,6 +278,8 @@ export const fa = {
 
   // ── Scrubber ──────────────────────────────────────────────────────────
   scrubTitle: 'سفر در زمان',
+  scrubHint:
+    'اسلایدر را بکشید تا ببینید هر شاخص در آن فصل کجاست. خط عمودی نارنجی روی همهٔ نمودارها همین فصل را نشان می‌دهد.',
   scrubLabel: 'انتخاب فصل',
   scrubCardTitle: ((q: string) => `وضعیت در ${q}`) as Fn,
   scrubCols: ['شاخص', 'پایه', 'سناریو', 'تفاوت'] as [string, string, string, string],
@@ -297,6 +300,9 @@ export const fa = {
     r: 'نرخ بهرهٔ واقعی',
   },
 
+  dataTableTitle: 'جدول کامل داده‌های سناریو',
+  baselineCol: 'پایه',
+  scenarioCol: 'سناریو',
   // ── Transmission ──────────────────────────────────────────────────────
   transTitle: 'اثر چطور در اقتصاد پخش می‌شود؟',
   transStages: [

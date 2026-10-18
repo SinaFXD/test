@@ -5,6 +5,14 @@ import { MobileControls } from './components/layout/BottomSheet';
 import { Footer } from './components/layout/Footer';
 import { Header } from './components/layout/Header';
 import { Toast } from './components/layout/Toast';
+import { DataTable } from './components/results/DataTable';
+import { KpiStrip } from './components/results/KpiStrip';
+import { MarketImpact } from './components/results/MarketImpact';
+import { PolicyChart } from './components/results/PolicyChart';
+import { SmallMultiples } from './components/results/SmallMultiples';
+import { Summary } from './components/results/Summary';
+import { TimeScrubber } from './components/results/TimeScrubber';
+import { Transmission } from './components/results/Transmission';
 import { useIsDesktop } from './hooks/useMediaQuery';
 import { usePlayDriver } from './hooks/usePlay';
 import { useT } from './i18n';
@@ -61,6 +69,7 @@ export default function App() {
           <p className="text-muted">{t.errorBody}</p>
         </div>
       )}
+      {status === 'ready' && <KpiStrip />}
       {status === 'ready' && (
         <div className="items-start gap-4 lg:grid lg:grid-cols-[minmax(320px,360px)_minmax(0,1fr)] xl:grid-cols-[380px_minmax(0,1fr)]">
           {isDesktop && (
@@ -71,7 +80,15 @@ export default function App() {
               <ControlsPanel />
             </aside>
           )}
-          <main id="results" tabIndex={-1} className="min-w-0 space-y-4 outline-none" />
+          <main id="results" tabIndex={-1} className="min-w-0 space-y-4 outline-none">
+            <Summary />
+            <PolicyChart />
+            <TimeScrubber />
+            <Transmission />
+            <SmallMultiples />
+            <MarketImpact />
+            <DataTable />
+          </main>
         </div>
       )}
       <Footer />

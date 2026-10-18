@@ -31,8 +31,10 @@ export function useFmt() {
       pct: (x: number | null | undefined, opts: NumOpts = {}) => iso(fmtPct(x, o(opts))),
       pp: (x: number | null | undefined, opts: NumOpts = {}) =>
         fmtPp(x, t.ppShort, o(opts)).replace(/^\S+/, iso),
-      bp: (pp: number | null | undefined, opts: NumOpts = {}) =>
-        fmtBp(pp, t.bpShort, o(opts)).replace(/^\S+/, iso),
+      // Latin unit ("bp"): isolate number + unit together so RTL keeps "+5 bp".
+      bp: (pp: number | null | undefined, opts: NumOpts = {}) => iso(fmtBp(pp, t.bpShort, o(opts))),
+      /** Isolate an arbitrary LTR run (e.g. a numeric range) inside RTL text. */
+      ltr: iso,
       date: (iso: string | undefined, short = false) => fmtDate(iso, lang, persian, short),
       jalali: (iso: string | undefined) => fmtJalali(iso, persian),
       digits: (s: string) => (persian ? toPersianDigits(s) : s),

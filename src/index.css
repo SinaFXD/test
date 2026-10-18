@@ -17,14 +17,15 @@
   --c-text: #e7edf9;
   --c-muted: #a3b0c9;
   --c-faint: #8392b0;
-  --c-scenario: #f5a524;
-  --c-scenario-soft: rgba(245, 165, 36, 0.16);
+  /* Chart series: validated categorical slots 1–3 (dataviz reference palette, dark steps) */
+  --c-scenario: #d95926;
+  --c-scenario-soft: rgba(217, 89, 38, 0.16);
+  --c-accent-text: #f08a5d;
   --c-baseline: #9aa6bd;
-  --c-market: #56b4e9;
-  --c-sep: #e88bc0;
-  --c-target: #7ee0b5;
-  --c-up: #5fd3a5;
-  --c-down: #ff8b8b;
+  --c-market: #3987e5;
+  --c-sep: #199e70;
+  --c-ref: #8392b0;
+  --c-history: #6f7d99;
   --c-warn: #f6c34a;
   --c-danger: #ff7b7b;
   --c-focus: #8cc8ff;
@@ -44,18 +45,18 @@
   --c-text: #0c1730;
   --c-muted: #455370;
   --c-faint: #5a6782;
-  --c-scenario: #b25a00;
-  --c-scenario-soft: rgba(178, 90, 0, 0.12);
+  --c-scenario: #eb6834;
+  --c-scenario-soft: rgba(235, 104, 52, 0.12);
+  --c-accent-text: #c2410c;
   --c-baseline: #5d6a84;
-  --c-market: #0068a8;
-  --c-sep: #a23b78;
-  --c-target: #12805a;
-  --c-up: #0f7a55;
-  --c-down: #c0392b;
+  --c-market: #2a78d6;
+  --c-sep: #1baf7a;
+  --c-ref: #5a6782;
+  --c-history: #8a95ab;
   --c-warn: #8a5a00;
   --c-danger: #b42318;
   --c-focus: #1d6fd6;
-  --c-on-accent: #ffffff;
+  --c-on-accent: #1a1203;
 }
 
 @theme inline {
@@ -72,12 +73,12 @@
   --color-faint: var(--c-faint);
   --color-scenario: var(--c-scenario);
   --color-scenario-soft: var(--c-scenario-soft);
+  --color-accent-text: var(--c-accent-text);
   --color-baseline: var(--c-baseline);
   --color-market: var(--c-market);
   --color-sep: var(--c-sep);
-  --color-target: var(--c-target);
-  --color-up: var(--c-up);
-  --color-down: var(--c-down);
+  --color-ref: var(--c-ref);
+  --color-history: var(--c-history);
   --color-warn: var(--c-warn);
   --color-danger: var(--c-danger);
   --color-focus: var(--c-focus);

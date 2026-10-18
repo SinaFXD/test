@@ -7,7 +7,7 @@ import { isStale } from '../../data/staleness';
 import { useData } from '../../state/data';
 import { usePrefs } from '../../state/prefs';
 import { useView } from '../../state/view';
-import { BookIcon, ClockIcon, DbIcon, MoonIcon, SunIcon } from '../icons';
+import { BookIcon, ClockIcon, DbIcon, MoonIcon, SunIcon, WarnIcon } from '../icons';
 import { Popover } from '../Popover';
 
 function FomcCountdown() {
@@ -27,7 +27,7 @@ function FomcCountdown() {
       className="chip gap-1.5 border-line-strong bg-bg-2/60 py-1 text-xs"
       title={`${f.jalali(next.date)}${next.sep ? ` · ${t.sepMeeting}` : ''}`}
     >
-      <ClockIcon size={14} className="text-scenario" />
+      <ClockIcon size={14} className="text-accent-text" />
       <span className="text-muted">{t.nextFomc}:</span>
       <span className="font-semibold">{f.date(next.date, true)}</span>
       {next.sep && (
@@ -35,7 +35,7 @@ function FomcCountdown() {
           ★
         </span>
       )}
-      <span className="num font-semibold text-scenario" aria-live="off">
+      <span className="num font-semibold text-accent-text" aria-live="off">
         {sameDay ? t.fomcToday : f.digits(t.countdown(String(days), String(hours), String(mins)))}
       </span>
     </div>
@@ -59,11 +59,13 @@ function UpdatedBadge() {
       triggerClassName="chip gap-1.5 border-line-strong bg-bg-2/60 py-1 text-xs hover:bg-panel-hover"
       trigger={
         <>
-          <span
-            className={`inline-block size-2 rounded-full ${staleCount ? 'bg-warn' : 'bg-up'}`}
-            aria-hidden="true"
-          />
+          {staleCount > 0 && <WarnIcon size={14} className="text-warn" />}
           <span>{f.digits(t.updatedAgo(fmtRelative(data.generatedAt, lang, now)))}</span>
+          {staleCount > 0 && (
+            <span className="text-warn">
+              · {f.digits(String(staleCount))} {t.stale}
+            </span>
+          )}
         </>
       }
     >

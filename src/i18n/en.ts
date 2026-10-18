@@ -215,6 +215,7 @@ export const en: Messages = {
     uStar: 'Natural rate',
     fan: 'Uncertainty range (approx.)',
     zero: 'No change',
+    atPotential: 'At potential',
     potential: 'Potential growth',
   },
   overlayWeek: '1 week ago',
@@ -253,6 +254,8 @@ export const en: Messages = {
   },
 
   scrubTitle: 'Time travel',
+  scrubHint:
+    'Drag to see where every indicator stands in that quarter. The orange vertical line marks the same quarter on every chart.',
   scrubLabel: 'Pick a quarter',
   scrubCardTitle: (q) => `Snapshot: ${q}`,
   scrubCols: ['Indicator', 'Baseline', 'Scenario', 'Diff.'],
@@ -273,6 +276,9 @@ export const en: Messages = {
     r: 'Real policy rate',
   },
 
+  dataTableTitle: 'Full scenario data table',
+  baselineCol: 'Baseline',
+  scenarioCol: 'Scenario',
   transTitle: 'How the effect travels through the economy',
   transStages: [
     { name: 'Markets', typical: 'immediately' },
