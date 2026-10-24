@@ -3,10 +3,6 @@
   "note": "Decision dates (second day of each two-day meeting). sep=true marks meetings with a Summary of Economic Projections. Verified against the official calendar on 2026-10-18; refreshed automatically by scripts/fetch-data.ts.",
   "meetings": [
     {
-      "date": "2025-07-30",
-      "sep": false
-    },
-    {
       "date": "2025-09-17",
       "sep": true
     },
