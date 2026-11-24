@@ -84,7 +84,7 @@ e2e/                smoke.spec.ts (smoke + export + 8 screenshots)
 **Staleness** (`src/data/staleness.ts`): measured from FRED `last_updated` (the source's last
 publication), not the observation date — otherwise every monthly series would look stale (August
 PCE is published at the end of September). Daily > 4 d, weekly > 10 d, monthly > 45 d,
-quarterly > 120 d; DTWEXBGS 10 d (H.10 is weekly). Projections and SEP are never stale.
+quarterly > 120 d; DTWEXBGS and DCOILWTICO 10 d (H.10 and EIA spot prices are weekly). Projections and SEP are never stale.
 
 **Series vs the brief**: all 37 IDs verified with `fred/series` on 2026-10-18 — all valid. Added
 **JCXFEMD** (SEP median for _core_ PCE) so SEP dots match the model's core PCE. NROU's FRED title
