@@ -42,7 +42,8 @@ export const FED_SERIES = [
   // H.10 broad dollar index is published weekly (Mondays) with a ~1-week lag.
   { key: 'dollar', id: 'DTWEXBGS', units: 'lin', kind: 'observed', staleDays: 10 },
   { key: 'sp500', id: 'SP500', units: 'lin', kind: 'observed' },
-  { key: 'wti', id: 'DCOILWTICO', units: 'lin', kind: 'observed' },
+  // EIA spot prices reach FRED once a week (usually Wednesdays) with the past week's days.
+  { key: 'wti', id: 'DCOILWTICO', units: 'lin', kind: 'observed', staleDays: 10 },
   { key: 'baaSpread', id: 'BAA10Y', units: 'lin', kind: 'observed' },
   { key: 'vix', id: 'VIXCLS', units: 'lin', kind: 'observed' },
   // FOMC Summary of Economic Projections (medians)
