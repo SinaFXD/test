@@ -34,7 +34,8 @@ jobs:
       - run: npm run build
 
   e2e:
-    runs-on: ubuntu-latest
+    # Pinned: Playwright 1.56 cannot install browsers on ubuntu-latest (26.04) yet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
