@@ -68,6 +68,27 @@ test('loads real data, renders charts and reacts to a preset', async ({ page }, 
   expect(errors).toEqual([]);
 });
 
+test('header popover opens above the cards below it', async ({ page }) => {
+  await page.goto('./?lang=fa');
+  await expect(page.locator('.skeleton')).toHaveCount(0, { timeout: 10_000 });
+  await page.locator('header button[aria-expanded]').first().click();
+  const panel = page.getByRole('dialog');
+  await expect(panel).toBeVisible();
+  // Every sampled point of the panel must hit the panel itself, not a KPI card painted over it.
+  const onTop = await panel.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return [0.2, 0.5, 0.8].flatMap((x) =>
+      [0.2, 0.5, 0.9].map((y) => {
+        const hit = document.elementFromPoint(r.left + r.width * x, r.top + r.height * y);
+        return !!hit && el.contains(hit);
+      }),
+    );
+  });
+  expect(onTop.every(Boolean)).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(panel).toHaveCount(0);
+});
+
 test('play, CSV and PNG export work (desktop)', async ({ page }, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop sidebar controls');
   const errors = await collectErrors(page);
